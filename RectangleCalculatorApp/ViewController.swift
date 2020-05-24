@@ -22,22 +22,30 @@ class ViewController: UIViewController {
     }
 
     func calculateAreaAndPerimeter() {
-        guard let width = widthTextField.text, let height = heightTextField.text else {
-            preconditionFailure("Text must be entered")
-        } // notify the user to enter a value
-        guard let widthDouble = Double(width), let heightDouble = Double(height) else {
-            preconditionFailure("Text must be a number or decimal")
-        } // notify the user to enter a number
+        guard let width = Double(widthTextField.text!), let height = Double(heightTextField.text!) else { return }
 
-        let area = widthDouble * heightDouble
-        let perimeter = (widthDouble * 2) + (heightDouble * 2)
-        areaLabel.text = "\(area)"
-        perimeterLabel.text = "\(perimeter)"
+        let area = width * height
+        let perimeter = (width * 2) + (height * 2)
+
+        let decimalFormatter = NumberFormatter()
+        decimalFormatter.maximumFractionDigits = 2
+
+        areaLabel.text = decimalFormatter.string(from: NSNumber(value: area))
+        perimeterLabel.text = decimalFormatter.string(from: NSNumber(value: perimeter))
     }
 }
 
 extension ViewController: UITextFieldDelegate {
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let text = Double(textField.text!) else {
+            let alert = UIAlertController(title: "", message: "Entry must be a decimal number", preferredStyle: .alert)
+            let dismissAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(dismissAction)
+            present(alert, animated: true)
+            return true
+        }
+
         if textField == heightTextField {
             textField.resignFirstResponder()
             calculateAreaAndPerimeter()
