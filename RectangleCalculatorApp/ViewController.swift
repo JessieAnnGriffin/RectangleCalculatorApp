@@ -28,6 +28,11 @@ class ViewController: UIViewController {
         let perimeter = (width * 2) + (height * 2)
 
         let decimalFormatter = NumberFormatter()
+        decimalFormatter.numberStyle = .decimal
+        decimalFormatter.usesGroupingSeparator = true
+        decimalFormatter.groupingSeparator = ","
+        decimalFormatter.alwaysShowsDecimalSeparator = true
+        decimalFormatter.minimumFractionDigits = 2
         decimalFormatter.maximumFractionDigits = 2
 
         areaLabel.text = decimalFormatter.string(from: NSNumber(value: area))
@@ -38,7 +43,7 @@ class ViewController: UIViewController {
 extension ViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let text = Double(textField.text!) else {
+        guard Double(textField.text!) != nil else {
             let alert = UIAlertController(title: "", message: "Entry must be a decimal number", preferredStyle: .alert)
             let dismissAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alert.addAction(dismissAction)
