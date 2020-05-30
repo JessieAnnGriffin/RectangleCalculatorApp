@@ -37,7 +37,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Width" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YXp-DT-XeD">
                                                 <rect key="frame" x="187" y="0.0" width="179" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -53,7 +53,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Height" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yAv-PY-ORq">
                                                 <rect key="frame" x="187" y="0.0" width="179" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -101,6 +101,7 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="HOB-r7-dtZ" firstAttribute="top" secondItem="LeC-Ja-rhe" secondAttribute="bottom" constant="36" id="7HK-LF-6BH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HOB-r7-dtZ" secondAttribute="trailing" constant="24" id="DgM-7d-3HK"/>
@@ -110,15 +111,20 @@
                             <constraint firstItem="LeC-Ja-rhe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="lXX-oQ-fMx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="v54-sx-IXk" appends="YES" id="Wa4-mC-GHK"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="areaLabel" destination="HPY-Uy-Fqy" id="483-SY-iRv"/>
                         <outlet property="heightTextField" destination="yAv-PY-ORq" id="7Hc-TU-6Gq"/>
+                        <outlet property="keyboardDismissTapGesture" destination="v54-sx-IXk" id="eCq-UO-pQv"/>
                         <outlet property="perimeterLabel" destination="O7q-fs-v65" id="F8o-xb-rsN"/>
                         <outlet property="widthTextField" destination="YXp-DT-XeD" id="iYC-fe-E3c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="v54-sx-IXk"/>
             </objects>
             <point key="canvasLocation" x="139" y="139"/>
         </scene>

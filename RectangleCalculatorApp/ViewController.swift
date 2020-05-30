@@ -15,10 +15,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var areaLabel: UILabel!
     @IBOutlet weak var perimeterLabel: UILabel!
 
+    @IBOutlet var keyboardDismissTapGesture: UITapGestureRecognizer!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.heightTextField.delegate = self
         self.widthTextField.delegate = self
+        keyboardDismissTapGesture.addTarget(self, action: #selector(ViewController.dismissKeyboard))
     }
 
     func calculateAreaAndPerimeter() {
@@ -38,30 +41,24 @@ class ViewController: UIViewController {
         areaLabel.text = decimalFormatter.string(from: NSNumber(value: area))
         perimeterLabel.text = decimalFormatter.string(from: NSNumber(value: perimeter))
     }
+
+    @objc func dismissKeyboard() {
+        self.view.addGestureRecognizer(keyboardDismissTapGesture)
+        calculateAreaAndPerimeter()
+    }
 }
 
 extension ViewController: UITextFieldDelegate {
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard Double(textField.text!) != nil else {
-            let alert = UIAlertController(title: "", message: "Entry must be a decimal number", preferredStyle: .alert)
-            let dismissAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alert.addAction(dismissAction)
-            present(alert, animated: true)
-            return true
-        }
-
-        if textField == heightTextField {
-            textField.resignFirstResponder()
-            calculateAreaAndPerimeter()
-            return true
-        } else {
-            textField.resignFirstResponder()
-            self.heightTextField.becomeFirstResponder()
-            return true
-        }
-    }
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.clearsOnBeginEditing = true
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string.rangeOfCharacter(from: NSCharacterSet.decimalDigits) != nil || (string.rangeOfCharacter(from: NSCharacterSet.punctuationCharacters) != nil) {
+            return true
+        } else {
+            return false
+        }
     }
 }
