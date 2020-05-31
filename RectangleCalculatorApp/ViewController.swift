@@ -55,10 +55,11 @@ extension ViewController: UITextFieldDelegate {
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if string.rangeOfCharacter(from: NSCharacterSet.decimalDigits) != nil || (string.rangeOfCharacter(from: NSCharacterSet.punctuationCharacters) != nil) {
-            return true
-        } else {
+
+        if ((textField.text?.components(separatedBy: ".").count)! > 1 && string == ".")
+        {
             return false
         }
+        return string == "" || (string == "." || Float(string) != nil)
     }
 }
